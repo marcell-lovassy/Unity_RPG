@@ -1,9 +1,11 @@
+using RPG.Core;
+using RPG.Core.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace RPG.Movement
 {
-    public class Mover : MonoBehaviour
+    public class Mover : MonoBehaviour, ICharacterAction
     {
         const string ANIM_SPEED_PARAM = "ForwardSpeed";
 
@@ -12,9 +14,11 @@ namespace RPG.Movement
 
         private NavMeshAgent agent;
         private Animator animator;
+        private ActionScheduler actionScheduler;
 
         void Start()
         {
+            actionScheduler = GetComponent<ActionScheduler>();
             animator = GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
         }
@@ -24,9 +28,21 @@ namespace RPG.Movement
             UpdateAnimator();
         }
 
+        public void StartMoveAction(Vector3 destination)
+        {
+            actionScheduler.StartAction(this);
+            MoveTo(destination);
+        }
+
         public void MoveTo(Vector3 destination)
         {
             agent.destination = destination;
+            agent.isStopped = false;
+        }
+
+        public void StopAction()
+        {
+            agent.isStopped = true;
         }
 
         private void UpdateAnimator()
