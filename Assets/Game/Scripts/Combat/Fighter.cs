@@ -1,20 +1,24 @@
+using RPG.Core;
+using RPG.Core.Interfaces;
 using RPG.Movement;
 using UnityEngine;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour
+    public class Fighter : MonoBehaviour, ICharacterAction
     {
         [SerializeField]
         float weaponRange = 2f;
 
         private Mover mover;
+        private ActionScheduler actionScheduler;
         private Transform target;
 
 
         private void Start()
         {
             mover = GetComponent<Mover>();
+            actionScheduler = GetComponent<ActionScheduler>();
         }
 
         void Update()
@@ -23,7 +27,7 @@ namespace RPG.Combat
 
             if (IsTagetInRange())
             {
-                mover.Stop();
+                mover.StopAction();
             }
             else
             {
@@ -39,12 +43,17 @@ namespace RPG.Combat
         public void Attack(CombatTarget combatTarget)
         {
             target = combatTarget.transform;
-            Debug.Log("attack");
+            actionScheduler.StartAction(this);
         }
 
         public void CancelAttack()
         {
             target = null;
+        }
+
+        public void StopAction()
+        {
+            CancelAttack();
         }
     }
 }
