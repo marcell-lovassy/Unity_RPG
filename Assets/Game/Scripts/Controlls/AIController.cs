@@ -1,6 +1,7 @@
 using RPG.Combat;
 using RPG.Core;
 using RPG.Movement;
+using System;
 using UnityEngine;
 
 namespace RPG.Controlls
@@ -13,19 +14,97 @@ namespace RPG.Controlls
 
         [SerializeField]
         private float chaseDistance = 5f;
+        [SerializeField]
+        private float suspicionTime = 3f;
+        [SerializeField]
+        private PatrolPath patrolPath;
+        [SerializeField]
+        private float patrolSpeed;
+        [SerializeField]
+        private float waypointTolerance = 1f;
 
         private Mover aiMovement;
         private Fighter fighter;
+        private ActionScheduler actionScheduler;
         private GameObject playerObject;
+        private Vector3 guardPosition;
+        private float timeSinceLastSawPlayer = Mathf.Infinity;
 
         private bool shouldUpdate = true;
+        private int currentWaypointIndex = 0;
 
         private void Start()
         {
             aiMovement = GetComponent<Mover>();
             fighter = GetComponent<Fighter>();
+            actionScheduler = GetComponent<ActionScheduler>();
             playerObject = GameObject.FindWithTag(PLAYER_TAG);
+            guardPosition = transform.position;
             GetComponent<Health>().Died += Died;
+        }
+
+      
+        private void Update()
+        {
+            if (!shouldUpdate) return;
+
+            if (IsPlayerInRange() && fighter.CanAttack(playerObject))
+            {
+                aiMovement.ResetSpeed();
+                timeSinceLastSawPlayer = 0;
+                AttackBehaviour();
+            }
+            else if (IsSuspicionStateActive())
+            {
+                SuspicionBehaviour();
+            }
+            else
+            {
+                PatrolBehaviour();
+            }
+
+            timeSinceLastSawPlayer += Time.deltaTime;
+        }
+
+        private void AttackBehaviour()
+        {
+            fighter.Attack(playerObject);
+        }
+
+        private void PatrolBehaviour()
+        {
+            aiMovement.SetAgentSpeed(patrolSpeed);
+            Vector3 nextPosition = guardPosition;
+
+            if(patrolPath != null)
+            {
+                if (AtWaypoint())
+                {
+                    CycleWaypoint();
+                }
+                nextPosition = GetCurrentWaypoint();
+            }
+            aiMovement.StartMoveAction(nextPosition);
+        }
+
+        private Vector3 GetCurrentWaypoint()
+        {
+            return patrolPath.GetWaypoint(currentWaypointIndex);
+        }
+
+        private void CycleWaypoint()
+        {
+            currentWaypointIndex = patrolPath.GetNextIndex(currentWaypointIndex);
+        }
+
+        private bool AtWaypoint()
+        {
+            return Vector3.Distance(GetCurrentWaypoint(), transform.position) < waypointTolerance;
+        }
+
+        private void SuspicionBehaviour()
+        {
+            actionScheduler.CancelCurrentAction();
         }
 
         private void Died()
@@ -34,18 +113,9 @@ namespace RPG.Controlls
             aiMovement.DisableAgent();
         }
 
-        private void Update()
+        private bool IsSuspicionStateActive()
         {
-            if (!shouldUpdate) return;
-
-            if (IsPlayerInRange() && fighter.CanAttack(playerObject))
-            {
-                fighter.Attack(playerObject);
-            }
-            else
-            {
-                fighter.StopAction();
-            }
+            return timeSinceLastSawPlayer < suspicionTime;
         }
 
         private float DistanceToPlayer()
@@ -60,7 +130,7 @@ namespace RPG.Controlls
             return DistanceToPlayer() <= chaseDistance;
         }
 
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, chaseDistance);
