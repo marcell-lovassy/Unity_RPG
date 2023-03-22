@@ -7,18 +7,21 @@ namespace RPG.Combat
 {
     public class Fighter : MonoBehaviour, ICharacterAction
     {
+        const string ATTACK_TRIGGER = "AttackTrigger";
+
         [SerializeField]
         float weaponRange = 2f;
 
         private Mover mover;
         private ActionScheduler actionScheduler;
         private Transform target;
-
+        private Animator animator;
 
         private void Start()
         {
             mover = GetComponent<Mover>();
             actionScheduler = GetComponent<ActionScheduler>();
+            animator = GetComponent<Animator>();
         }
 
         void Update()
@@ -28,11 +31,17 @@ namespace RPG.Combat
             if (IsTagetInRange())
             {
                 mover.StopAction();
+                DoAttackBehaviour();
             }
             else
             {
                 mover.MoveTo(target.position);
             }
+        }
+
+        private void DoAttackBehaviour()
+        {
+            animator.SetTrigger(ATTACK_TRIGGER);
         }
 
         private bool IsTagetInRange()
@@ -54,6 +63,12 @@ namespace RPG.Combat
         public void StopAction()
         {
             CancelAttack();
+        }
+
+        //This is an animation event (called from the attack animations)
+        private void Hit()
+        {
+
         }
     }
 }
