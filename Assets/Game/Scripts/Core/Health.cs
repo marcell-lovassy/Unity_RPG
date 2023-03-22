@@ -1,11 +1,13 @@
 using UnityEngine;
+using UnityEngine.Events;
 
-namespace RPG.Combat
+namespace RPG.Core
 {
     public class Health : MonoBehaviour
     {
         const string DEATH_TRIGGER = "DeathTrigger";
 
+        public event UnityAction Died;
         public bool IsDead => !isAlive;
 
         [SerializeField]
@@ -39,6 +41,8 @@ namespace RPG.Combat
             if (!isAlive) return;
             animator.SetTrigger(DEATH_TRIGGER);
             isAlive = false;
+            GetComponent<ActionScheduler>().CancelCurrentAction();
+            Died.Invoke();
         }
     }
 }

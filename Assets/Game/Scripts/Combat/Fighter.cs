@@ -27,6 +27,7 @@ namespace RPG.Combat
 
         private void Start()
         {
+            timeSinceLastAttack = timeBetweenAttacks;
             mover = GetComponent<Mover>();
             actionScheduler = GetComponent<ActionScheduler>();
             animator = GetComponent<Animator>();
@@ -48,13 +49,13 @@ namespace RPG.Combat
             }
         }
 
-        public void Attack(CombatTarget combatTarget)
+        public void Attack(GameObject combatTarget)
         {
             target = combatTarget.GetComponent<Health>();
             actionScheduler.StartAction(this);
         }
 
-        public void CancelAttack()
+        private void CancelAttack()
         {
             target = null;
             TriggerStopAttack();
@@ -65,7 +66,7 @@ namespace RPG.Combat
             CancelAttack();
         }
 
-        public bool CanAttack(CombatTarget combatTarget)
+        public bool CanAttack(GameObject combatTarget)
         {
             if (combatTarget == null) return false;
             Health targetHealth = combatTarget.GetComponent<Health>();
@@ -106,8 +107,6 @@ namespace RPG.Combat
         {
             return target != null && Vector3.Distance(target.transform.position, transform.position) <= weaponRange;
         }
-
-
     }
 }
 

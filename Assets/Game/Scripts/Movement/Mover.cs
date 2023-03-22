@@ -9,18 +9,17 @@ namespace RPG.Movement
     {
         const string ANIM_SPEED_PARAM = "ForwardSpeed";
 
-        [SerializeField]
-        private Transform target;
-
         private NavMeshAgent agent;
         private Animator animator;
         private ActionScheduler actionScheduler;
+        private float baseSpeed;
 
         void Start()
         {
             actionScheduler = GetComponent<ActionScheduler>();
             animator = GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
+            baseSpeed = agent.speed;
         }
 
         void Update()
@@ -45,12 +44,27 @@ namespace RPG.Movement
             agent.isStopped = true;
         }
 
+        public void DisableAgent()
+        {
+            agent.enabled = false;
+        }
+
         private void UpdateAnimator()
         {
             Vector3 velocity = agent.velocity;
             Vector3 localVelocity = transform.InverseTransformDirection(velocity);
             float speed = localVelocity.z;
             animator.SetFloat(ANIM_SPEED_PARAM, speed);
+        }
+
+        public void SetAgentSpeed(float speed)
+        {
+            agent.speed = speed;
+        }
+
+        public void ResetSpeed()
+        {
+            agent.speed = baseSpeed;
         }
     }
 }
