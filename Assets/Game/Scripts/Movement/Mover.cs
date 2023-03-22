@@ -9,9 +9,6 @@ namespace RPG.Movement
     {
         const string ANIM_SPEED_PARAM = "ForwardSpeed";
 
-        [SerializeField]
-        private Transform target;
-
         private NavMeshAgent agent;
         private Animator animator;
         private ActionScheduler actionScheduler;
@@ -43,6 +40,11 @@ namespace RPG.Movement
         public void StopAction()
         {
             agent.isStopped = true;
+        }
+
+        public void DisableAgent()
+        {
+            agent.enabled = false;
         }
 
         private void UpdateAnimator()

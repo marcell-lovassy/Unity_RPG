@@ -1,5 +1,7 @@
 using RPG.Combat;
+using RPG.Core;
 using RPG.Movement;
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -7,16 +9,29 @@ namespace RPG.Controlls
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField]
-        private Mover characterMovement;
-        [SerializeField]
         private Fighter fighter;
+        private Mover playerMovement;
+        private bool shouldUpdate = true;
+
+        private void Start()
+        {
+            playerMovement = GetComponent<Mover>();
+            fighter = GetComponent<Fighter>();
+            GetComponent<Health>().Died += Died;
+        }
+
+        private void Died()
+        {
+            shouldUpdate = false;
+            playerMovement.DisableAgent();
+        }
 
         void Update()
         {
+            if (!shouldUpdate) return;
+            
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
-
             print("Nothing to do.");
         }
 
@@ -38,17 +53,6 @@ namespace RPG.Controlls
             return attacking;
         }
 
-        private CombatTarget GetFirstCombatTargetIfAny(RaycastHit[] hits)
-        {
-            var combatTargets = hits
-                .Where(h => fighter.CanAttack(h.transform.GetComponent<CombatTarget>()))
-                .Select(h => h.transform.GetComponent<CombatTarget>());
-
-            return combatTargets.
-                OrderBy(target => Vector3.Distance(target.transform.position, transform.position)).
-                FirstOrDefault();
-        }
-
         private bool InteractWithMovement()
         {
             RaycastHit hit;
@@ -56,13 +60,26 @@ namespace RPG.Controlls
             {
                 if (Input.GetMouseButton(0))
                 {
-                    characterMovement.StartMoveAction(hit.point);
+                    playerMovement.StartMoveAction(hit.point);
                 }
                 return true;
             }
             return false;
             //Debug.DrawRay(ray.origin, ray.direction * 100);
         }
+
+        private GameObject GetFirstCombatTargetIfAny(RaycastHit[] hits)
+        {
+            var combatTargets = hits
+                .Where(h => h.transform.GetComponent<CombatTarget>() != null && fighter.CanAttack(h.transform.gameObject))
+                .Select(h => h.transform.gameObject);
+
+            return combatTargets.
+                OrderBy(target => Vector3.Distance(target.transform.position, transform.position)).
+                FirstOrDefault();
+        }
+
+        
 
         private Ray GetMouseRay()
         {

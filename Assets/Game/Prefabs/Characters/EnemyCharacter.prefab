@@ -59,6 +59,10 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 4962596887843563853, guid: a45cb6ab7ebe9ce41a303f5baadb8d18, type: 3}
+      propertyPath: m_Speed
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a45cb6ab7ebe9ce41a303f5baadb8d18, type: 3}
 --- !u!4 &1497580114690852848 stripped
@@ -97,6 +101,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf0583546d7962409b9f19932e8e156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6935712630512699719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867126490834447722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 273d164548972704ead8459e096f47c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseDistance: 5
 --- !u!1001 &1876528699868057052
 PrefabInstance:
   m_ObjectHideFlags: 0
