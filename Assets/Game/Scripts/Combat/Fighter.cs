@@ -7,31 +7,53 @@ namespace RPG.Combat
 {
     public class Fighter : MonoBehaviour, ICharacterAction
     {
+        const string ATTACK_TRIGGER = "AttackTrigger";
+
         [SerializeField]
         float weaponRange = 2f;
+        [SerializeField]
+        [Range(0f, 5f)]
+        float timeBetweenAttacks = 1f;
 
         private Mover mover;
         private ActionScheduler actionScheduler;
         private Transform target;
+        private Animator animator;
+        float timeSinceLastAttack = 0;
 
 
         private void Start()
         {
             mover = GetComponent<Mover>();
             actionScheduler = GetComponent<ActionScheduler>();
+            animator = GetComponent<Animator>();
         }
 
         void Update()
         {
+            timeSinceLastAttack += Time.deltaTime;
             if (target == null) return;
 
             if (IsTagetInRange())
             {
                 mover.StopAction();
+                DoAttackBehaviour();
             }
             else
             {
                 mover.MoveTo(target.position);
+            }
+        }
+
+        private void DoAttackBehaviour()
+        {
+            if (timeSinceLastAttack > timeBetweenAttacks)
+            {
+                animator.SetTrigger(ATTACK_TRIGGER);
+
+
+
+                timeSinceLastAttack = 0;
             }
         }
 
@@ -54,6 +76,12 @@ namespace RPG.Combat
         public void StopAction()
         {
             CancelAttack();
+        }
+
+        //This is an animation event (called from the attack animations)
+        private void Hit()
+        {
+
         }
     }
 }
