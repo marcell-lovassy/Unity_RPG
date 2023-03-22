@@ -41,10 +41,12 @@ namespace RPG.Controlls
         private CombatTarget GetFirstCombatTargetIfAny(RaycastHit[] hits)
         {
             var combatTargets = hits
-                .Where(h => h.transform.GetComponent<CombatTarget>() != null)
+                .Where(h => fighter.CanAttack(h.transform.GetComponent<CombatTarget>()))
                 .Select(h => h.transform.GetComponent<CombatTarget>());
 
-            return combatTargets.FirstOrDefault();
+            return combatTargets.
+                OrderBy(target => Vector3.Distance(target.transform.position, transform.position)).
+                FirstOrDefault();
         }
 
         private bool InteractWithMovement()
