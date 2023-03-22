@@ -76,6 +76,7 @@ namespace RPG.Combat
         //This is an animation event (called from the attack animations)
         private void Hit()
         {
+            if(target == null) return;
             target.GetComponent<Health>().TakeDamage(weaponDamage);
         }
 
