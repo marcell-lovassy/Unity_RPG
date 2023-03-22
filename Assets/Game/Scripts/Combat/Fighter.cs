@@ -12,6 +12,8 @@ namespace RPG.Combat
         [SerializeField]
         float weaponRange = 2f;
         [SerializeField]
+        float weaponDamage = 5f;
+        [SerializeField]
         [Range(0f, 5f)]
         float timeBetweenAttacks = 1f;
 
@@ -45,23 +47,6 @@ namespace RPG.Combat
             }
         }
 
-        private void DoAttackBehaviour()
-        {
-            if (timeSinceLastAttack > timeBetweenAttacks)
-            {
-                animator.SetTrigger(ATTACK_TRIGGER);
-
-
-
-                timeSinceLastAttack = 0;
-            }
-        }
-
-        private bool IsTagetInRange()
-        {
-            return target != null && Vector3.Distance(target.position, transform.position) <= weaponRange;
-        }
-
         public void Attack(CombatTarget combatTarget)
         {
             target = combatTarget.transform;
@@ -78,11 +63,28 @@ namespace RPG.Combat
             CancelAttack();
         }
 
+        private void DoAttackBehaviour()
+        {
+            if (timeSinceLastAttack > timeBetweenAttacks)
+            {
+                //this will trigger the Hit() event
+                animator.SetTrigger(ATTACK_TRIGGER);
+                timeSinceLastAttack = 0;
+            }
+        }
+
         //This is an animation event (called from the attack animations)
         private void Hit()
         {
-
+            target.GetComponent<Health>().TakeDamage(weaponDamage);
         }
+
+        private bool IsTagetInRange()
+        {
+            return target != null && Vector3.Distance(target.position, transform.position) <= weaponRange;
+        }
+
+
     }
 }
 

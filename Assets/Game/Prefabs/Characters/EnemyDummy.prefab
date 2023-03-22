@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7430516303955299766}
   - component: {fileID: 3155159323567609114}
   - component: {fileID: 2306862800774099127}
+  - component: {fileID: 8123736697831276577}
   m_Layer: 0
   m_Name: EnemyDummy
   m_TagString: Untagged
@@ -111,3 +112,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf0583546d7962409b9f19932e8e156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8123736697831276577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7383106732794035851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f16179ca8c7641418e826bf6996e8b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 20
