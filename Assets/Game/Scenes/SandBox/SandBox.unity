@@ -5003,6 +5003,22 @@ PrefabInstance:
       propertyPath: chaseDistance
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6935712630512699719, guid: 4255ae3bd6b63874faadc41c6159363d, type: 3}
+      propertyPath: maxWaitingTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6935712630512699719, guid: 4255ae3bd6b63874faadc41c6159363d, type: 3}
+      propertyPath: minWaitingTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6935712630512699719, guid: 4255ae3bd6b63874faadc41c6159363d, type: 3}
+      propertyPath: maxWaitingTimeAtWaypoint
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6935712630512699719, guid: 4255ae3bd6b63874faadc41c6159363d, type: 3}
+      propertyPath: minWaitingTimeAtWaypoint
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4255ae3bd6b63874faadc41c6159363d, type: 3}
 --- !u!4 &1269070732 stripped
@@ -7503,7 +7519,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1920557046}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -7.89}
+  m_LocalPosition: {x: 0, y: 0, z: -13.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7610,7 +7626,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2022623043}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.48, y: 0, z: -8.03}
+  m_LocalPosition: {x: -8.58, y: 0, z: -8.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
