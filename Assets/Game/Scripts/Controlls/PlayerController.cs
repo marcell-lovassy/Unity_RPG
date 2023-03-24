@@ -29,8 +29,12 @@ namespace RPG.Controlls
         void Update()
         {
             if (!shouldUpdate) return;
-            
-            if (InteractWithCombat()) return;
+
+            if (InteractWithCombat())
+            {
+                Debug.LogWarning("attack");
+                return;
+            }
             if (InteractWithMovement()) return;
             print("Nothing to do.");
         }
@@ -43,7 +47,7 @@ namespace RPG.Controlls
             var combatTarget = GetFirstCombatTargetIfAny(hits);
             if (combatTarget != null)
             {
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButton(0))
                 {
                     fighter.Attack(combatTarget);
                 }

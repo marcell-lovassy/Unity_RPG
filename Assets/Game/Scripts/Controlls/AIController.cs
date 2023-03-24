@@ -22,6 +22,10 @@ namespace RPG.Controlls
         private float patrolSpeed;
         [SerializeField]
         private float waypointTolerance = 1f;
+        [SerializeField]
+        private float minWaitingTimeAtWaypoint;
+        [SerializeField]
+        private float maxWaitingTimeAtWaypoint;
 
         private Mover aiMovement;
         private Fighter fighter;
@@ -29,6 +33,8 @@ namespace RPG.Controlls
         private GameObject playerObject;
         private Vector3 guardPosition;
         private float timeSinceLastSawPlayer = Mathf.Infinity;
+        private float timeSinceArrivedAtWaypoint = Mathf.Infinity;
+        private float waitingTime;
 
         private bool shouldUpdate = true;
         private int currentWaypointIndex = 0;
@@ -51,7 +57,6 @@ namespace RPG.Controlls
             if (IsPlayerInRange() && fighter.CanAttack(playerObject))
             {
                 aiMovement.ResetSpeed();
-                timeSinceLastSawPlayer = 0;
                 AttackBehaviour();
             }
             else if (IsSuspicionStateActive())
@@ -64,10 +69,12 @@ namespace RPG.Controlls
             }
 
             timeSinceLastSawPlayer += Time.deltaTime;
+            timeSinceArrivedAtWaypoint += Time.deltaTime;
         }
 
         private void AttackBehaviour()
         {
+            timeSinceLastSawPlayer = 0;
             fighter.Attack(playerObject);
         }
 
@@ -81,10 +88,16 @@ namespace RPG.Controlls
                 if (AtWaypoint())
                 {
                     CycleWaypoint();
+                    waitingTime = UnityEngine.Random.Range(minWaitingTimeAtWaypoint, maxWaitingTimeAtWaypoint);
+                    timeSinceArrivedAtWaypoint = 0;
                 }
                 nextPosition = GetCurrentWaypoint();
             }
-            aiMovement.StartMoveAction(nextPosition);
+
+            if (timeSinceArrivedAtWaypoint > waitingTime)
+            {
+                aiMovement.StartMoveAction(nextPosition);
+            }
         }
 
         private Vector3 GetCurrentWaypoint()
