@@ -4930,6 +4930,10 @@ PrefabInstance:
       propertyPath: patrolPath
       value: 
       objectReference: {fileID: 277851551}
+    - target: {fileID: 6935712630512699719, guid: 4255ae3bd6b63874faadc41c6159363d, type: 3}
+      propertyPath: patrolSpeed
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4255ae3bd6b63874faadc41c6159363d, type: 3}
 --- !u!1001 &1252860365
