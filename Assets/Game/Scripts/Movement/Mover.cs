@@ -9,17 +9,19 @@ namespace RPG.Movement
     {
         const string ANIM_SPEED_PARAM = "ForwardSpeed";
 
+        [SerializeField]
+        private float movementSpeed;
+
         private NavMeshAgent agent;
         private Animator animator;
         private ActionScheduler actionScheduler;
-        private float baseSpeed;
 
         void Start()
         {
             actionScheduler = GetComponent<ActionScheduler>();
             animator = GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
-            baseSpeed = agent.speed;
+            agent.speed = movementSpeed;
         }
 
         void Update()
@@ -64,7 +66,7 @@ namespace RPG.Movement
 
         public void ResetSpeed()
         {
-            agent.speed = baseSpeed;
+            agent.speed = movementSpeed;
         }
     }
 }
