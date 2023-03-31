@@ -66,6 +66,7 @@ namespace RPG.Core
             }
             else
             {
+                isAlive = true;
                 animator.ResetTrigger(DEATH_TRIGGER);
                 animator.SetTrigger(REVIVE_TRIGGER);
                 Revived?.Invoke();
