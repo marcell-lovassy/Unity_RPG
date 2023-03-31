@@ -13,7 +13,8 @@ namespace RPG.Controlls
         private Mover playerMovement;
         private bool shouldUpdate = true;
 
-        private void Start()
+
+        private void Awake()
         {
             playerMovement = GetComponent<Mover>();
             fighter = GetComponent<Fighter>();
@@ -32,11 +33,9 @@ namespace RPG.Controlls
 
             if (InteractWithCombat())
             {
-                Debug.LogWarning("attack");
                 return;
             }
             if (InteractWithMovement()) return;
-            print("Nothing to do.");
         }
 
         private bool InteractWithCombat()
@@ -69,7 +68,6 @@ namespace RPG.Controlls
                 return true;
             }
             return false;
-            //Debug.DrawRay(ray.origin, ray.direction * 100);
         }
 
         private GameObject GetFirstCombatTargetIfAny(RaycastHit[] hits)

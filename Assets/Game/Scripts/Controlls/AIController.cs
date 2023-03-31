@@ -3,6 +3,7 @@ using RPG.Core;
 using RPG.Movement;
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RPG.Controlls
 {
@@ -39,17 +40,23 @@ namespace RPG.Controlls
         private bool shouldUpdate = true;
         private int currentWaypointIndex = 0;
 
-        private void Start()
+        private void Awake()
         {
             aiMovement = GetComponent<Mover>();
             fighter = GetComponent<Fighter>();
             actionScheduler = GetComponent<ActionScheduler>();
             playerObject = GameObject.FindWithTag(PLAYER_TAG);
-            guardPosition = transform.position;
             GetComponent<Health>().Died += Died;
+            GetComponent<Health>().Revived += Reactivate;
         }
 
-      
+
+        private void Start()
+        {
+            guardPosition = transform.position;
+        }
+       
+
         private void Update()
         {
             if (!shouldUpdate) return;
@@ -69,6 +76,18 @@ namespace RPG.Controlls
             }
 
             UpdateTimers();
+        }
+
+        private void Died()
+        {
+            shouldUpdate = false;
+            aiMovement.DisableAgent();
+        }
+
+        private void Reactivate()
+        {
+            shouldUpdate = true;
+            aiMovement.EnableAgent();
         }
 
         private void UpdateTimers()
@@ -125,11 +144,7 @@ namespace RPG.Controlls
             actionScheduler.CancelCurrentAction();
         }
 
-        private void Died()
-        {
-            shouldUpdate = false;
-            aiMovement.DisableAgent();
-        }
+       
 
         private bool IsSuspicionStateActive()
         {

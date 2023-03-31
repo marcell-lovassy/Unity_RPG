@@ -2,10 +2,12 @@ using RPG.Core;
 using RPG.Core.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
+using RPG.Core.SavingSystem;
+using Newtonsoft.Json.Linq;
 
 namespace RPG.Movement
 {
-    public class Mover : MonoBehaviour, ICharacterAction
+    public class Mover : MonoBehaviour, ICharacterAction, IJsonSaveable
     {
         const string ANIM_SPEED_PARAM = "ForwardSpeed";
 
@@ -16,11 +18,15 @@ namespace RPG.Movement
         private Animator animator;
         private ActionScheduler actionScheduler;
 
-        void Start()
+        private void Awake()
         {
             actionScheduler = GetComponent<ActionScheduler>();
             animator = GetComponent<Animator>();
             agent = GetComponent<NavMeshAgent>();
+        }
+
+        void Start()
+        {
             agent.speed = movementSpeed;
         }
 
@@ -51,6 +57,11 @@ namespace RPG.Movement
             agent.enabled = false;
         }
 
+        public void EnableAgent()
+        {
+            agent.enabled = true;
+        }
+
         private void UpdateAnimator()
         {
             Vector3 velocity = agent.velocity;
@@ -67,6 +78,20 @@ namespace RPG.Movement
         public void ResetSpeed()
         {
             agent.speed = movementSpeed;
+        }
+
+        public JToken CaptureAsJToken()
+        {
+            return transform.position.ToToken();
+        }
+
+        public void RestoreFromJToken(JToken state)
+        {
+            agent = GetComponent<NavMeshAgent>();
+            agent.enabled = false;
+            transform.position = state.ToVector3();
+            agent.enabled = true;
+            GetComponent<ActionScheduler>().CancelCurrentAction();
         }
     }
 }
