@@ -14,9 +14,7 @@ namespace RPG.Core
             if(currentAction != null)
             {
                 currentAction.StopAction();
-                print($"Cancelling action {currentAction}");
             }
-            print($"Starting action {action}");
             currentAction = action;
         }
 
