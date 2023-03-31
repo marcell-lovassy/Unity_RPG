@@ -9,8 +9,8 @@ Point and Click RPG game made with Unity
   3. animations
   
 ### Enemy AI
-  1. patroling
-  2. suspicion
+  - patroling
+  - suspicion
   3. attacking
   4. chasing player
 
