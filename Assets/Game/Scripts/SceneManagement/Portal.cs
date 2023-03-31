@@ -49,9 +49,15 @@ public class Portal : MonoBehaviour
         Fader fader = FindObjectOfType<Fader>();
         yield return fader.FadeOut(fadeOutTime);
 
+        //save current level
+        SavingWrapper savingWrapper = FindObjectOfType<SavingWrapper>();
+        savingWrapper.Save();
+
         DontDestroyOnLoad(gameObject);
-        AsyncOperation sceneLoading = SceneManager.LoadSceneAsync(sceneToLoad);
-        yield return sceneLoading;
+        yield return SceneManager.LoadSceneAsync(sceneToLoad);
+
+        //load current level
+        savingWrapper.Load();
 
         Portal otherPortal = GetOtherPortal();
         if(otherPortal != null)
@@ -61,6 +67,8 @@ public class Portal : MonoBehaviour
 
         yield return new WaitForSeconds(transitionWaitingTime);
         yield return fader.FadeIn(fadeInTime);
+
+        savingWrapper.Save();
         Destroy(gameObject);
     }
 

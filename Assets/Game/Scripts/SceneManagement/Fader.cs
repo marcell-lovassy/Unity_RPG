@@ -15,6 +15,10 @@ namespace RPG.SceneManagement
             yield return FadeIn(fadeDuration);
         }
 
+        public void FadeOutImmediate()
+        {
+            canvasGroup.alpha = 1.0f;
+        }
 
         public IEnumerator FadeOut(float duration)
         {
