@@ -106,15 +106,15 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: CinematicCam1
   - m_Version: 1
-    m_Start: 7.266666666666667
+    m_Start: 10.266666666666667
     m_ClipIn: 0
     m_Asset: {fileID: -119947958101326389}
-    m_Duration: 5
+    m_Duration: 5.300000000000001
     m_TimeScale: 1
     m_ParentTrack: {fileID: -8450931092175518995}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: -1
+    m_BlendInDuration: 0.8833333333333329
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -166,28 +166,10 @@ MonoBehaviour:
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: 0.9833333333333334
-    m_BlendOutDuration: -1
+    m_BlendOutDuration: 0.6500000000000004
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -207,6 +189,39 @@ MonoBehaviour:
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
     m_DisplayName: CinematicCam2
+  - m_Version: 1
+    m_Start: 6.616666666666666
+    m_ClipIn: 0
+    m_Asset: {fileID: 3770334691509233304}
+    m_Duration: 4.533333333333334
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: -8450931092175518995}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0.6500000000000004
+    m_BlendOutDuration: 0.8833333333333329
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: CinematicCam3
   m_Markers:
     m_Objects: []
 --- !u!114 &-1409650798863701916
@@ -336,6 +351,22 @@ MonoBehaviour:
   VirtualCamera:
     exposedName: 659df7c899c5e234988305034c6ed194
     defaultValue: {fileID: 0}
+--- !u!114 &3770334691509233304
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90fb794a295e73545af71bcdb7375791, type: 3}
+  m_Name: CinemachineShot
+  m_EditorClassIdentifier: 
+  DisplayName: 
+  VirtualCamera:
+    exposedName: 65e3adbb904f22d468e2b8e74f91c254
+    defaultValue: {fileID: 0}
 --- !u!74 &4458931157485542626
 AnimationClip:
   m_ObjectHideFlags: 0
@@ -357,7 +388,7 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 6.25
+        time: 11.416667
         value: 0
         inSlope: 0
         outSlope: 0
@@ -366,7 +397,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 10.85
+        time: 15
         value: 1
         inSlope: 0
         outSlope: 0
@@ -402,7 +433,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 10.85
+    m_StopTime: 15
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -422,7 +453,7 @@ AnimationClip:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 6.25
+        time: 11.416667
         value: 0
         inSlope: 0
         outSlope: 0
@@ -431,7 +462,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 10.85
+        time: 15
         value: 1
         inSlope: 0
         outSlope: 0
