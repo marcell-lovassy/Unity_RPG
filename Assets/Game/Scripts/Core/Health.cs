@@ -1,6 +1,8 @@
 using Newtonsoft.Json.Linq;
 using RPG.Controlls;
 using RPG.Core.SavingSystem;
+using System.Collections.Generic;
+using UnityEditor.XR;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -53,12 +55,15 @@ namespace RPG.Core
 
         public JToken CaptureAsJToken()
         {
-            return JToken.FromObject(healthPoints);
+            //return JToken.FromObject(healthPoints);
+            return JToken.FromObject(new HealthData(isAlive, healthPoints));
         }
 
         public void RestoreFromJToken(JToken state)
         {
-            healthPoints = state.ToObject<float>();
+            var healthData = state.ToObject<HealthData>();
+            isAlive = healthData.IsAlive;
+            healthPoints = healthData.HealthPoints;
 
             if (healthPoints == 0)
             {
@@ -71,6 +76,18 @@ namespace RPG.Core
                 animator.SetTrigger(REVIVE_TRIGGER);
                 Revived?.Invoke();
             }
+        }
+    }
+
+    struct HealthData
+    {
+        public bool IsAlive { get; set; }
+        public float HealthPoints { get; set; }
+
+        public HealthData(bool isAlive, float health)
+        {
+            IsAlive = isAlive;
+            HealthPoints = health;
         }
     }
 }

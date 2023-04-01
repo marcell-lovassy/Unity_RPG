@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using RPG.Core.SavingSystem;
 using Newtonsoft.Json.Linq;
+using System;
 
 namespace RPG.Movement
 {
@@ -82,16 +83,31 @@ namespace RPG.Movement
 
         public JToken CaptureAsJToken()
         {
-            return transform.position.ToToken();
+            return JToken.FromObject(new MovementData(transform.position, transform.eulerAngles));
         }
 
         public void RestoreFromJToken(JToken state)
         {
+            MovementData data = state.ToObject<MovementData>();
             agent = GetComponent<NavMeshAgent>();
             agent.enabled = false;
-            transform.position = state.ToVector3();
+            transform.position = data.Location.ToVector3();
+            transform.eulerAngles = data.Rotation.ToVector3();
             agent.enabled = true;
             GetComponent<ActionScheduler>().CancelCurrentAction();
+        }
+    }
+
+    [Serializable]
+    struct MovementData
+    {
+        public JToken Location { get; set; }
+        public JToken Rotation { get; set; }
+
+        public MovementData(Vector3 l, Vector3 r)
+        {
+            Location = l.ToToken();
+            Rotation = r.ToToken();
         }
     }
 }
