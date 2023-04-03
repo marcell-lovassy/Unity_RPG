@@ -1,6 +1,7 @@
 using RPG.Core;
 using RPG.Core.Interfaces;
 using RPG.Movement;
+using System;
 using UnityEngine;
 
 namespace RPG.Combat
@@ -17,6 +18,10 @@ namespace RPG.Combat
         [SerializeField]
         [Range(0f, 5f)]
         float timeBetweenAttacks = 1f;
+        [SerializeField]
+        GameObject weaponPrefab = null;
+        [SerializeField]
+        Transform handTransform = null;
 
         private Mover mover;
         private ActionScheduler actionScheduler;
@@ -24,14 +29,20 @@ namespace RPG.Combat
         private Animator animator;
         float timeSinceLastAttack = 0;
 
-
-        private void Start()
+        private void Awake()
         {
-            timeSinceLastAttack = timeBetweenAttacks;
             mover = GetComponent<Mover>();
             actionScheduler = GetComponent<ActionScheduler>();
             animator = GetComponent<Animator>();
         }
+
+        private void Start()
+        {
+            SpawnWeapon();
+            timeSinceLastAttack = timeBetweenAttacks;
+        }
+
+      
 
         void Update()
         {
@@ -54,14 +65,6 @@ namespace RPG.Combat
             target = combatTarget.GetComponent<Health>();
             actionScheduler.StartAction(this);
         }
-
-        private void CancelAttack()
-        {
-            target = null;
-            TriggerStopAttack();
-            mover.StopAction();
-        }
-
         public void StopAction()
         {
             CancelAttack();
@@ -72,6 +75,13 @@ namespace RPG.Combat
             if (combatTarget == null) return false;
             Health targetHealth = combatTarget.GetComponent<Health>();
             return targetHealth != null && !targetHealth.IsDead;
+        }
+
+        private void CancelAttack()
+        {
+            target = null;
+            TriggerStopAttack();
+            mover.StopAction();
         }
 
         private void DoAttackBehaviour()
@@ -95,6 +105,14 @@ namespace RPG.Combat
         {
             animator.ResetTrigger(ATTACK_TRIGGER);
             animator.SetTrigger(STOP_ATTACK_TRIGGER);
+        }
+
+        private void SpawnWeapon()
+        {
+            if(weaponPrefab != null)
+            {
+                Instantiate(weaponPrefab, handTransform);
+            }
         }
 
         //This is an animation event (called from the attack animations)
