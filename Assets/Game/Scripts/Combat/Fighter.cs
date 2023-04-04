@@ -11,9 +11,9 @@ namespace RPG.Combat
         const string ATTACK_TRIGGER = "AttackTrigger";
         const string STOP_ATTACK_TRIGGER = "StopAttackTrigger";
 
-        [SerializeField]
+        [SerializeField] 
         float weaponRange = 2f;
-        [SerializeField]
+        [SerializeField] 
         float weaponDamage = 5f;
         [SerializeField]
         [Range(0f, 5f)]
