@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2168064154527337040
+--- !u!1001 &5612624601164128610
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -9,23 +9,67 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3454944434198156255, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
       propertyPath: m_Name
-      value: ArrowProjectileRed
+      value: ArrowProjectileBlue
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160396203453286533, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
+      propertyPath: m_Parameters.colorGradient.atime0
+      value: 29876
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160396203453286533, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
+      propertyPath: m_Parameters.colorGradient.atime1
+      value: 65535
       objectReference: {fileID: 0}
     - target: {fileID: 7160396203453286533, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
       propertyPath: m_Parameters.colorGradient.ctime0
-      value: 42791
+      value: 53199
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160396203453286533, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
+      propertyPath: m_Parameters.colorGradient.ctime1
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160396203453286533, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
+      propertyPath: m_Parameters.colorGradient.ctime2
+      value: 65535
       objectReference: {fileID: 0}
     - target: {fileID: 7160396203453286533, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7160396203453286533, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.g
-      value: 0.007505389
+      value: 0.7261277
       objectReference: {fileID: 0}
     - target: {fileID: 7160396203453286533, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
       propertyPath: m_Parameters.colorGradient.key0.r
-      value: 0.735849
+      value: 0.2396226
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160396203453286533, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.a
+      value: 0.19607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160396203453286533, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160396203453286533, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160396203453286533, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
+      propertyPath: m_Parameters.colorGradient.key2.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160396203453286533, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
+      propertyPath: m_Parameters.colorGradient.key2.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160396203453286533, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
+      propertyPath: m_Parameters.colorGradient.key2.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160396203453286533, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
+      propertyPath: m_Parameters.colorGradient.m_NumColorKeys
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8883306460923527241, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
       propertyPath: m_RootOrder
