@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6398c5fc4df67c4b95ef635c3a61b8f, type: 3}
+  m_Name: PlayerBow
+  m_EditorClassIdentifier: 
+  equippedPrefab: {fileID: 3462593137372613269, guid: 249a92be99cdecc42b4b952d625febc5, type: 3}
+  projectile: {fileID: 3650016286820450644, guid: 68a11336a7b7a444abaee70aaac35255, type: 3}
+  range: 15
+  damage: 15
+  rightHanded: 0
+  weaponAnimatorOverride: {fileID: 22100000, guid: c345326c6fdc21c41bdad14ecb987cc2, type: 2}
