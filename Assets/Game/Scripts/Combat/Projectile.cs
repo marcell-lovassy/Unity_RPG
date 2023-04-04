@@ -13,12 +13,17 @@ public class Projectile : MonoBehaviour
     bool followTarget = false;
     [SerializeField]
     GameObject hitEffect = null;
+    [SerializeField]
+    GameObject mesh;
+    [SerializeField]
+    GameObject trail;
 
     private Health target;
+    GameObject hitEffectInstance;
 
     private void Start()
     {
-        StartCoroutine(DestroyProjectileInSeconds(10f));
+        StartCoroutine(CleanUpAfter(10f));
     }
 
     // Update is called once per frame
@@ -72,20 +77,36 @@ public class Projectile : MonoBehaviour
             {
                 if(hitEffect != null)
                 {
-                    GameObject hitEffectInstance = Instantiate(hitEffect, GetAimLocation(), transform.rotation);
+                    hitEffectInstance = Instantiate(hitEffect, GetAimLocation(), transform.rotation);
                 }
                 target.TakeDamage(damage);
-                Destroy(gameObject);
+                StartCoroutine(DestroyProjectileInSeconds(0.25f));
             }
         }
     }
 
     private IEnumerator DestroyProjectileInSeconds(float time)
     {
+        if (!target.IsDead)
+        {
+            Destroy(mesh);
+            Destroy(trail);
+        }
         yield return new WaitForSeconds(time);
-
+        if(hitEffectInstance != null)
+        {
+            Destroy(hitEffectInstance);
+        }
         Destroy(gameObject);
     }
 
-
+    private IEnumerator CleanUpAfter(float time)
+    {
+        yield return new WaitForSeconds(time);
+        if (hitEffectInstance != null)
+        {
+            Destroy(hitEffectInstance);
+        }
+        Destroy(gameObject);
+    }
 }

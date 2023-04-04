@@ -225,6 +225,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4411599558070543569, guid: 13184e5ca550a944ba9fa22cff68aade, type: 3}
+      propertyPath: trail
+      value: 
+      objectReference: {fileID: 997478064114916684}
+    - target: {fileID: 4411599558070543569, guid: 13184e5ca550a944ba9fa22cff68aade, type: 3}
       propertyPath: hitEffect
       value: 
       objectReference: {fileID: 9073151876594976836, guid: 9a0c4d2ae2a6c964ebffb2013dc67e10, type: 3}

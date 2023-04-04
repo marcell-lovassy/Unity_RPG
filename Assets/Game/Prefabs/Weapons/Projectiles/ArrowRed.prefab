@@ -245,9 +245,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4411599558070543569, guid: 13184e5ca550a944ba9fa22cff68aade, type: 3}
+      propertyPath: trail
+      value: 
+      objectReference: {fileID: 1456162289846810104}
+    - target: {fileID: 4411599558070543569, guid: 13184e5ca550a944ba9fa22cff68aade, type: 3}
       propertyPath: hitEffect
       value: 
       objectReference: {fileID: 9073151876594976836, guid: 9a0c4d2ae2a6c964ebffb2013dc67e10, type: 3}
+    - target: {fileID: 6877383825724015732, guid: 13184e5ca550a944ba9fa22cff68aade, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7892613235899881272, guid: 13184e5ca550a944ba9fa22cff68aade, type: 3}
       propertyPath: m_Name
       value: ArrowRed
