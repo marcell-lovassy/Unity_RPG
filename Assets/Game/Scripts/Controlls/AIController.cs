@@ -82,6 +82,7 @@ namespace RPG.Controlls
         {
             shouldUpdate = false;
             aiMovement.DisableAgent();
+            GetComponent<Collider>().enabled = false;
         }
 
         private void Reactivate()
