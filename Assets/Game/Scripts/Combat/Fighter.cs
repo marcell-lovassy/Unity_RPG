@@ -15,7 +15,9 @@ namespace RPG.Combat
         [Range(0f, 5f)]
         float timeBetweenAttacks = 1f;
         [SerializeField]
-        Transform handTransform = null;
+        Transform rightHandTransform = null;
+        [SerializeField]
+        Transform leftHandTransform = null;
         [SerializeField]
         WeaponData defaultWeaponData = null;
 
@@ -105,7 +107,7 @@ namespace RPG.Combat
         public void EquipWeapon(WeaponData weapon)
         {
             currentWeapon = weapon;
-            weapon.Spawn(handTransform, animator);
+            weapon.Spawn(rightHandTransform, leftHandTransform, animator);
         }
 
         //This is an animation event (called from the attack animations)

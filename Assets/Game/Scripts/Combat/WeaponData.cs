@@ -15,13 +15,15 @@ namespace RPG.Combat
         [SerializeField]
         float damage = 15f;
         [SerializeField]
+        bool rightHanded = true;
+        [SerializeField]
         AnimatorOverrideController weaponAnimatorOverride = null;
 
-        public void Spawn(Transform handTransform, Animator animator)
+        public void Spawn(Transform rightHand, Transform leftHand, Animator animator)
         {
             if(equippedPrefab != null)
             {
-                Instantiate(equippedPrefab, handTransform);
+                Instantiate(equippedPrefab, rightHanded ? rightHand : leftHand);
             }
 
             if(weaponAnimatorOverride != null)
