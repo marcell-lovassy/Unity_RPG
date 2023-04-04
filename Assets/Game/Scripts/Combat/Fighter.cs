@@ -22,6 +22,8 @@ namespace RPG.Combat
         GameObject weaponPrefab = null;
         [SerializeField]
         Transform handTransform = null;
+        [SerializeField]
+        AnimatorOverrideController weaponAnimatorOverride = null;
 
         private Mover mover;
         private ActionScheduler actionScheduler;
@@ -41,8 +43,6 @@ namespace RPG.Combat
             SpawnWeapon();
             timeSinceLastAttack = timeBetweenAttacks;
         }
-
-      
 
         void Update()
         {
@@ -112,6 +112,7 @@ namespace RPG.Combat
             if(weaponPrefab != null)
             {
                 Instantiate(weaponPrefab, handTransform);
+                animator.runtimeAnimatorController = weaponAnimatorOverride;
             }
         }
 
