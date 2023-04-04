@@ -11,19 +11,13 @@ namespace RPG.Combat
         const string ATTACK_TRIGGER = "AttackTrigger";
         const string STOP_ATTACK_TRIGGER = "StopAttackTrigger";
 
-        [SerializeField] 
-        float weaponRange = 2f;
-        [SerializeField] 
-        float weaponDamage = 5f;
         [SerializeField]
         [Range(0f, 5f)]
         float timeBetweenAttacks = 1f;
         [SerializeField]
-        GameObject weaponPrefab = null;
-        [SerializeField]
         Transform handTransform = null;
         [SerializeField]
-        AnimatorOverrideController weaponAnimatorOverride = null;
+        WeaponData weaponData = null;
 
         private Mover mover;
         private ActionScheduler actionScheduler;
@@ -109,23 +103,22 @@ namespace RPG.Combat
 
         private void SpawnWeapon()
         {
-            if(weaponPrefab != null)
-            {
-                Instantiate(weaponPrefab, handTransform);
-                animator.runtimeAnimatorController = weaponAnimatorOverride;
-            }
+            if (weaponData == null) return;
+            weaponData.Spawn(handTransform, animator);
+
+           
         }
 
         //This is an animation event (called from the attack animations)
         private void Hit()
         {
             if(target == null) return;
-            target.TakeDamage(weaponDamage);
+            target.TakeDamage(weaponData.WeaponDamage);
         }
 
         private bool IsTagetInRange()
         {
-            return target != null && Vector3.Distance(target.transform.position, transform.position) <= weaponRange;
+            return target != null && Vector3.Distance(target.transform.position, transform.position) <= weaponData.WeaponRange;
         }
     }
 }
