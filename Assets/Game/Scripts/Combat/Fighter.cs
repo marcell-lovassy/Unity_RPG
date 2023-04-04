@@ -24,7 +24,8 @@ namespace RPG.Combat
         private Mover mover;
         private ActionScheduler actionScheduler;
         private Health target;
-        private WeaponData currentWeapon;
+        private WeaponData currentWeaponData;
+        private GameObject currentWeapon;
         private Animator animator;
         float timeSinceLastAttack = 0;
 
@@ -106,8 +107,9 @@ namespace RPG.Combat
 
         public void EquipWeapon(WeaponData weapon)
         {
-            currentWeapon = weapon;
-            weapon.Spawn(rightHandTransform, leftHandTransform, animator);
+            Destroy(currentWeapon);
+            currentWeaponData = weapon;
+            currentWeapon = weapon.Spawn(rightHandTransform, leftHandTransform, animator);
         }
 
         //This is an animation event (called from the attack animations)
@@ -115,16 +117,17 @@ namespace RPG.Combat
         {
             if(target == null) return;
 
-            if (currentWeapon.HasProjectile())
+            if (currentWeaponData.HasProjectile())
             {
-                currentWeapon.LaunchProjectile(target, rightHandTransform, leftHandTransform);
+                currentWeaponData.LaunchProjectile(target, rightHandTransform, leftHandTransform);
             }
             else
             {
-                target.TakeDamage(currentWeapon.Damage);
+                target.TakeDamage(currentWeaponData.Damage);
             }
         }
 
+        //This is an animation event (called from the shoot animations)
         private void Shoot()
         {
             Hit();
@@ -132,7 +135,7 @@ namespace RPG.Combat
 
         private bool IsTagetInRange()
         {
-            return target != null && Vector3.Distance(target.transform.position, transform.position) <= currentWeapon.Range;
+            return target != null && Vector3.Distance(target.transform.position, transform.position) <= currentWeaponData.Range;
         }
     }
 }

@@ -22,17 +22,20 @@ namespace RPG.Combat
         [SerializeField]
         AnimatorOverrideController weaponAnimatorOverride = null;
 
-        public void Spawn(Transform rightHand, Transform leftHand, Animator animator)
+        public GameObject Spawn(Transform rightHand, Transform leftHand, Animator animator)
         {
+            GameObject weapon = null;
             if(equippedPrefab != null)
             {
-                Instantiate(equippedPrefab, GetActiveHand(rightHand, leftHand));
+                weapon = Instantiate(equippedPrefab, GetActiveHand(rightHand, leftHand));
             }
 
             if(weaponAnimatorOverride != null)
             {
                 animator.runtimeAnimatorController = weaponAnimatorOverride;
             }
+
+            return weapon;
         }
 
         public bool HasProjectile()
