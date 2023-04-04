@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Rare
   m_EditorClassIdentifier: 
   Tier: 1
-  Color: {r: 0, g: 0.35820904, b: 0.6792453, a: 0}
+  Color: {r: 0.27735847, g: 0.6574762, b: 1, a: 0}

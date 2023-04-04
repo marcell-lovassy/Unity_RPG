@@ -114,7 +114,20 @@ namespace RPG.Combat
         private void Hit()
         {
             if(target == null) return;
-            target.TakeDamage(currentWeapon.Damage);
+
+            if (currentWeapon.HasProjectile())
+            {
+                currentWeapon.LaunchProjectile(target, rightHandTransform, leftHandTransform);
+            }
+            else
+            {
+                target.TakeDamage(currentWeapon.Damage);
+            }
+        }
+
+        private void Shoot()
+        {
+            Hit();
         }
 
         private bool IsTagetInRange()
