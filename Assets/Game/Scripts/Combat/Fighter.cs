@@ -17,11 +17,12 @@ namespace RPG.Combat
         [SerializeField]
         Transform handTransform = null;
         [SerializeField]
-        WeaponData weaponData = null;
+        WeaponData defaultWeaponData = null;
 
         private Mover mover;
         private ActionScheduler actionScheduler;
         private Health target;
+        private WeaponData currentWeapon;
         private Animator animator;
         float timeSinceLastAttack = 0;
 
@@ -34,7 +35,7 @@ namespace RPG.Combat
 
         private void Start()
         {
-            SpawnWeapon();
+            EquipWeapon(defaultWeaponData);
             timeSinceLastAttack = timeBetweenAttacks;
         }
 
@@ -101,24 +102,22 @@ namespace RPG.Combat
             animator.SetTrigger(STOP_ATTACK_TRIGGER);
         }
 
-        private void SpawnWeapon()
+        public void EquipWeapon(WeaponData weapon)
         {
-            if (weaponData == null) return;
-            weaponData.Spawn(handTransform, animator);
-
-           
+            currentWeapon = weapon;
+            weapon.Spawn(handTransform, animator);
         }
 
         //This is an animation event (called from the attack animations)
         private void Hit()
         {
             if(target == null) return;
-            target.TakeDamage(weaponData.WeaponDamage);
+            target.TakeDamage(currentWeapon.Damage);
         }
 
         private bool IsTagetInRange()
         {
-            return target != null && Vector3.Distance(target.transform.position, transform.position) <= weaponData.WeaponRange;
+            return target != null && Vector3.Distance(target.transform.position, transform.position) <= currentWeapon.Range;
         }
     }
 }
