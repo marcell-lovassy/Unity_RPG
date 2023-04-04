@@ -11,6 +11,8 @@ public class Projectile : MonoBehaviour
     float speed = 1f;
     [SerializeField]
     bool followTarget = false;
+    [SerializeField]
+    GameObject hitEffect = null;
 
     private Health target;
 
@@ -68,6 +70,10 @@ public class Projectile : MonoBehaviour
             }
             else
             {
+                if(hitEffect != null)
+                {
+                    GameObject hitEffectInstance = Instantiate(hitEffect, GetAimLocation(), transform.rotation);
+                }
                 target.TakeDamage(damage);
                 Destroy(gameObject);
             }
@@ -80,4 +86,6 @@ public class Projectile : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+
 }
