@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BowBlueProjectile
   m_EditorClassIdentifier: 
   equippedPrefab: {fileID: 3462593137372613269, guid: 249a92be99cdecc42b4b952d625febc5, type: 3}
-  projectile: {fileID: 3650016286820450644, guid: 68a11336a7b7a444abaee70aaac35255, type: 3}
+  projectile: {fileID: 5347736282329885844, guid: fe593534b6223fa44aa6ef0ccfc1b9f7, type: 3}
   range: 15
   damage: 15
   rightHanded: 0
