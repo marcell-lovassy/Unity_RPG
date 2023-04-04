@@ -36,7 +36,6 @@ namespace RPG.Combat
         void Update()
         {
             float y = startingY + amplitude * Mathf.Sin(2 * Mathf.PI * runningTime * frequency);
-            Debug.Log(y);
             transform.position = new Vector3(transform.position.x, y, transform.position.z);
             runningTime += Time.deltaTime;
         }
