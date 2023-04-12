@@ -7,6 +7,8 @@ Point and Click RPG game made with Unity
   - health
   - death
   - animations
+  - melee weapons
+  - ranged weapons
   
 ### Enemy AI
   - patroling
@@ -18,3 +20,4 @@ Point and Click RPG game made with Unity
   - save player and enemy positions
   - save current scene, load it on play
   - save health and other stats of characters and preserve data between scenes
+  - save weapons
