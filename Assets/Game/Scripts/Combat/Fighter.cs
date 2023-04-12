@@ -1,25 +1,27 @@
+using Newtonsoft.Json.Linq;
 using RPG.Core;
 using RPG.Core.Interfaces;
+using RPG.Core.SavingSystem;
 using RPG.Movement;
 using System;
 using UnityEngine;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, ICharacterAction
+    public class Fighter : MonoBehaviour, ICharacterAction, IJsonSaveable
     {
         const string ATTACK_TRIGGER = "AttackTrigger";
         const string STOP_ATTACK_TRIGGER = "StopAttackTrigger";
 
         [SerializeField]
         [Range(0f, 5f)]
-        float timeBetweenAttacks = 1f;
+        private float timeBetweenAttacks = 1f;
         [SerializeField]
-        Transform rightHandTransform = null;
+        private Transform rightHandTransform = null;
         [SerializeField]
-        Transform leftHandTransform = null;
+        private Transform leftHandTransform = null;
         [SerializeField]
-        WeaponData defaultWeaponData = null;
+        private WeaponData defaultWeaponData = null;
 
         private Mover mover;
         private ActionScheduler actionScheduler;
@@ -38,7 +40,7 @@ namespace RPG.Combat
 
         private void Start()
         {
-            EquipWeapon(defaultWeaponData);
+            EquipWeapon(currentWeaponData != null ? currentWeaponData : defaultWeaponData);
             timeSinceLastAttack = timeBetweenAttacks;
         }
 
@@ -136,6 +138,17 @@ namespace RPG.Combat
         private bool IsTagetInRange()
         {
             return target != null && Vector3.Distance(target.transform.position, transform.position) <= currentWeaponData.Range;
+        }
+
+        public JToken CaptureAsJToken()
+        {
+            return JToken.FromObject(currentWeaponData.name);
+        }
+
+        public void RestoreFromJToken(JToken state)
+        {
+            currentWeaponData = Resources.Load<WeaponData>(state.ToString());
+            EquipWeapon(currentWeaponData);
         }
     }
 }
