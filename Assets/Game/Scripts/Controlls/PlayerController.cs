@@ -13,11 +13,11 @@ namespace RPG.Controlls
         private Mover playerMovement;
         private bool shouldUpdate = true;
 
-
         private void Awake()
         {
             playerMovement = GetComponent<Mover>();
             fighter = GetComponent<Fighter>();
+            
             GetComponent<Health>().Died += Died;
         }
 
@@ -25,6 +25,7 @@ namespace RPG.Controlls
         {
             shouldUpdate = false;
             playerMovement.DisableAgent();
+            GetComponent<Collider>().enabled = false;
         }
 
         void Update()
