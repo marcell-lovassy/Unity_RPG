@@ -59,6 +59,18 @@ PrefabInstance:
       propertyPath: mesh
       value: 
       objectReference: {fileID: 6854527576075563050}
+    - target: {fileID: 9170307608845967414, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
+      propertyPath: lifetimeAfterImpact
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9170307608845967414, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
+      propertyPath: destroyOnHit.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9170307608845967414, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
+      propertyPath: destroyOnHit.Array.data[0]
+      value: 
+      objectReference: {fileID: 6854527576075563050}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56c419e25edf3614e8d7712285ec8869, type: 3}
 --- !u!4 &4124598427327939758 stripped
