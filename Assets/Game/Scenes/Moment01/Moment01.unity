@@ -2791,6 +2791,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2791968610969219641, guid: 7e9ba4f86f4fa52419b5230eb46a0589, type: 3}
+      propertyPath: hideTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2791968610969219641, guid: 7e9ba4f86f4fa52419b5230eb46a0589, type: 3}
       propertyPath: weaponData
       value: 
       objectReference: {fileID: 11400000, guid: 4e14b61a584b03f4e9c9ac6072657876, type: 2}
@@ -4351,6 +4355,10 @@ PrefabInstance:
     - target: {fileID: 599436698829361788, guid: 4d97ff1241226794488178dfa765cd12, type: 3}
       propertyPath: m_Name
       value: BowPickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 4563363972809333487, guid: 4d97ff1241226794488178dfa765cd12, type: 3}
+      propertyPath: hideTime
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4563363972809333487, guid: 4d97ff1241226794488178dfa765cd12, type: 3}
       propertyPath: weaponData
@@ -8648,7 +8656,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1845731826}
-  m_LocalRotation: {x: -0.129161, y: 0.8707821, z: -0.33007315, w: -0.340746}
+  m_LocalRotation: {x: -0.129161, y: 0.8707821, z: -0.33007312, w: -0.34074596}
   m_LocalPosition: {x: 27.03, y: 36.57, z: 29.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9538,7 +9546,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2047327686}
-  m_LocalRotation: {x: -0.023503197, y: 0.9763079, z: -0.14207405, w: -0.16150984}
+  m_LocalRotation: {x: -0.023503195, y: 0.9763079, z: -0.14207403, w: -0.16150986}
   m_LocalPosition: {x: 27.3, y: 24.4, z: 52.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9667,6 +9675,10 @@ PrefabInstance:
     - target: {fileID: 1837073213396420322, guid: c576e717438a5064c9f43146d944b2c8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2583437883215728217, guid: c576e717438a5064c9f43146d944b2c8, type: 3}
+      propertyPath: hideTime
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2583437883215728217, guid: c576e717438a5064c9f43146d944b2c8, type: 3}
       propertyPath: weaponData

@@ -1,26 +1,31 @@
 using RPG.Core;
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace RPG.Combat
 {
     public class WeaponPickup : MonoBehaviour
     {
-        float runningTime = 0f;
-        float startingY;
+        private float runningTime = 0f;
+        private float startingY;
 
         [Header("Weapon settings")]
         [SerializeField]
-        ItemTier tier;
+        private ItemTier tier;
         [SerializeField]
-        WeaponData weaponData;
+        private WeaponData weaponData;
 
         [Header("Hover Settings")]
         [SerializeField]
-        float amplitude = 1f;
+        private float amplitude = 1f;
         [SerializeField]
-        float frequency = 1f;
+        private float frequency = 1f;
 
-        Light[] lights;
+        [SerializeField]
+        private float hideTime = 1f;
+
+        private Light[] lights;
 
         private void Start()
         {
@@ -45,7 +50,23 @@ namespace RPG.Combat
             if (other.CompareTag("Player"))
             {
                 other.GetComponent<Fighter>().EquipWeapon(weaponData);
-                Destroy(gameObject);
+                StartCoroutine(HideForSeconds(hideTime));
+            }
+        }
+
+        private IEnumerator HideForSeconds(float seconds)
+        {
+            ShowPickup(false);
+            yield return new WaitForSeconds(seconds);
+            ShowPickup(true);
+        }
+
+        private void ShowPickup(bool show)
+        {
+            GetComponent<Collider>().enabled = show;
+            foreach (Transform child in transform) 
+            {
+                child.gameObject.SetActive(show);
             }
         }
     }
