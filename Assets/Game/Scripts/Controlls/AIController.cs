@@ -1,9 +1,8 @@
 using RPG.Combat;
-using RPG.Core;
+using RPG.Attributes;
 using RPG.Movement;
-using System;
 using UnityEngine;
-using UnityEngine.Events;
+using RPG.Core;
 
 namespace RPG.Controlls
 {

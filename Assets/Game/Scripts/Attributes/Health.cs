@@ -1,9 +1,11 @@
 using Newtonsoft.Json.Linq;
+using RPG.Core;
 using RPG.Core.SavingSystem;
+using RPG.Stats;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace RPG.Core
+namespace RPG.Attributes
 {
     public class Health : MonoBehaviour, IJsonSaveable
     {
@@ -25,7 +27,7 @@ namespace RPG.Core
 
         private void Awake()
         {
-            healthPoints = maxHealth;
+            healthPoints = GetComponent<BaseStats>().GetHealth();
             animator = GetComponent<Animator>();
             isAlive = true;
         }
