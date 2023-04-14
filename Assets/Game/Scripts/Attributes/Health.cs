@@ -14,8 +14,12 @@ namespace RPG.Attributes
 
         public event UnityAction Died;
         public event UnityAction Revived;
+        public event UnityAction HealthChanged;
+
 
         public bool IsDead => !isAlive;
+        public float HealthPoints => healthPoints;
+        public float HealthPercentage => (healthPoints / maxHealth) * 100f;
 
         [SerializeField]
         private float maxHealth;
@@ -28,6 +32,7 @@ namespace RPG.Attributes
         private void Awake()
         {
             healthPoints = GetComponent<BaseStats>().GetHealth();
+            maxHealth = healthPoints;
             animator = GetComponent<Animator>();
             isAlive = true;
         }
@@ -39,7 +44,8 @@ namespace RPG.Attributes
             {
                 Die();
             }
-            print(healthPoints);
+
+            HealthChanged?.Invoke();
         }
 
         private void Die()
