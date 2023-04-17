@@ -27,8 +27,8 @@ namespace RPG.Combat
         private Mover mover;
         private ActionScheduler actionScheduler;
         private Health target;
-        private WeaponData currentWeaponData;
-        private GameObject currentWeapon;
+        private WeaponData currentWeapon;
+        private GameObject currentWeaponObject;
         private Animator animator;
         float timeSinceLastAttack = 0;
 
@@ -41,7 +41,7 @@ namespace RPG.Combat
 
         private void Start()
         {
-            EquipWeapon(currentWeaponData != null ? currentWeaponData : defaultWeaponData);
+            EquipWeapon(currentWeapon != null ? currentWeapon : defaultWeaponData);
             timeSinceLastAttack = timeBetweenAttacks;
         }
 
@@ -78,6 +78,18 @@ namespace RPG.Combat
             return targetHealth != null && !targetHealth.IsDead;
         }
 
+        public void EquipWeapon(WeaponData weapon)
+        {
+            Destroy(currentWeaponObject);
+            currentWeapon = weapon;
+            currentWeaponObject = weapon.Spawn(rightHandTransform, leftHandTransform, animator);
+        }
+
+        public Health GetTarget()
+        {
+            return target;
+        }
+
         private void CancelAttack()
         {
             target = null;
@@ -108,25 +120,18 @@ namespace RPG.Combat
             animator.SetTrigger(STOP_ATTACK_TRIGGER);
         }
 
-        public void EquipWeapon(WeaponData weapon)
-        {
-            Destroy(currentWeapon);
-            currentWeaponData = weapon;
-            currentWeapon = weapon.Spawn(rightHandTransform, leftHandTransform, animator);
-        }
-
         //This is an animation event (called from the attack animations)
         private void Hit()
         {
             if(target == null) return;
 
-            if (currentWeaponData.HasProjectile())
+            if (currentWeapon.HasProjectile())
             {
-                currentWeaponData.LaunchProjectile(target, rightHandTransform, leftHandTransform);
+                currentWeapon.LaunchProjectile(target, rightHandTransform, leftHandTransform, gameObject);
             }
             else
             {
-                target.TakeDamage(currentWeaponData.Damage);
+                target.TakeDamage(gameObject, currentWeapon.Damage);
             }
         }
 
@@ -138,18 +143,18 @@ namespace RPG.Combat
 
         private bool IsTagetInRange()
         {
-            return target != null && Vector3.Distance(target.transform.position, transform.position) <= currentWeaponData.Range;
+            return target != null && Vector3.Distance(target.transform.position, transform.position) <= currentWeapon.Range;
         }
 
         public JToken CaptureAsJToken()
         {
-            return JToken.FromObject(currentWeaponData.name);
+            return JToken.FromObject(currentWeapon.name);
         }
 
         public void RestoreFromJToken(JToken state)
         {
-            currentWeaponData = Resources.Load<WeaponData>(state.ToString());
-            EquipWeapon(currentWeaponData);
+            currentWeapon = Resources.Load<WeaponData>(state.ToString());
+            EquipWeapon(currentWeapon);
         }
     }
 }

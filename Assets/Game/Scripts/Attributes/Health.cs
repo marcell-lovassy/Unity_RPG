@@ -37,20 +37,28 @@ namespace RPG.Attributes
             isAlive = true;
         }
 
-        public void TakeDamage(float dmg)
+        public void TakeDamage(GameObject instigator, float dmg)
         {
             healthPoints = Mathf.Max(healthPoints - dmg, 0);
             if(healthPoints == 0)
             {
                 Die();
+                AwardExperience(instigator);
             }
 
             HealthChanged?.Invoke();
         }
 
+        private void AwardExperience(GameObject instigator)
+        {
+            Experience experience = instigator.GetComponent<Experience>();
+            if (experience == null) return;
+            experience.GainExperience(GetComponent<BaseStats>().GetExperienceReward());
+        }
+
         private void Die()
         {
-            if (IsDead) return;
+            //if (IsDead) return;
             animator.ResetTrigger(REVIVE_TRIGGER);
             animator.SetTrigger(DEATH_TRIGGER);
             isAlive = false;

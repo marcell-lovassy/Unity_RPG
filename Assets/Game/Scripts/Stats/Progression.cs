@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 namespace RPG.Stats
 {
@@ -9,7 +11,22 @@ namespace RPG.Stats
     public class Progression : ScriptableObject
     {
         [SerializeField]
-        ProgressionCharacterClass[] progressionCharacterClass;
+        ProgressionCharacterClass[] progressionCharacterClasses;
+
+        public float GetHealth(CharacterClass characterClass, int level)
+        {
+            return GetStatValue(characterClass, Stat.Health, level);
+        }
+        public float GetExperienceReward(CharacterClass characterClass, int level)
+        {
+            return GetStatValue(characterClass, Stat.ExperienceReward, level);
+        }
+
+        public float GetStatValue(CharacterClass characterClass, Stat stat, int level)
+        {
+            return progressionCharacterClasses.FirstOrDefault(characterProgression => characterProgression.CharacterClass == characterClass).GetStatValue(stat, level - 1);
+        }
+
 
         [Serializable]
         class ProgressionCharacterClass
@@ -17,21 +34,26 @@ namespace RPG.Stats
             public CharacterClass CharacterClass => characterClass;
 
             [SerializeField]
-            CharacterClass characterClass;
+            private CharacterClass characterClass;
             [SerializeField]
-            float[] healthByLevel;
+            private ProgressionStat[] stats;
 
-            public float GetHealth(int index)
+            public float GetStatValue(Stat stat, int index)
             {
-                if (index >= healthByLevel.Length) return healthByLevel.Last();
-                if(0 <= index) return healthByLevel[index];
+                ProgressionStat progressionStat = stats.FirstOrDefault(s => s.stat == stat);
+                if (progressionStat == null) return 0;
+                if (index >= progressionStat.levels.Length) return progressionStat.levels.Last();
+                if (0 <= index) return progressionStat.levels[index];
                 return 0;
             }
         }
 
-        public float GetHealth(CharacterClass characterClass, int level)
+
+        [Serializable]
+        class ProgressionStat
         {
-            return progressionCharacterClass.FirstOrDefault(characterProgression => characterProgression.CharacterClass == characterClass).GetHealth(level - 1);
+            public Stat stat;
+            public float[] levels;
         }
     }
 }

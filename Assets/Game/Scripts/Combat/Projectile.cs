@@ -21,6 +21,7 @@ namespace RPG.Combat
         private GameObject[] destroyOnHit;
 
         private Health target;
+        private GameObject instigator = null;
         private GameObject hitEffectInstance;
 
         private void Start()
@@ -45,10 +46,12 @@ namespace RPG.Combat
             damage += modifier;
         }
 
-        public void SetTarget(Health t)
+        public void SetTarget(Health t, GameObject instigator)
         {
             target = t;
             transform.LookAt(GetAimLocation());
+            this.instigator = instigator;
+            Destroy(gameObject, maxLifeTime);
         }
 
         private Vector3 GetAimLocation()
@@ -83,7 +86,7 @@ namespace RPG.Combat
                     {
                         hitEffectInstance = Instantiate(hitEffect, GetAimLocation(), transform.rotation);
                     }
-                    target.TakeDamage(damage);
+                    target.TakeDamage(instigator, damage);
 
                     foreach (GameObject toDestroy in destroyOnHit)
                     {
