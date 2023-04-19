@@ -3,7 +3,7 @@ using RPG.Core.SavingSystem;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace RPG.Attributes
+namespace RPG.Stats
 {
     public class Experience : MonoBehaviour, IJsonSaveable
     {

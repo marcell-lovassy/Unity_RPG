@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
-using static Cinemachine.DocumentationSortingAttribute;
 
 namespace RPG.Stats
 {
@@ -12,6 +11,8 @@ namespace RPG.Stats
     {
         [SerializeField]
         ProgressionCharacterClass[] progressionCharacterClasses;
+
+        Dictionary<CharacterClass, Dictionary<Stat, float[]>> progressionLookupTable = null;
 
         public float GetHealth(CharacterClass characterClass, int level)
         {
@@ -22,16 +23,57 @@ namespace RPG.Stats
             return GetStatValue(characterClass, Stat.ExperienceReward, level);
         }
 
-        public float GetStatValue(CharacterClass characterClass, Stat stat, int level)
+        public int GetPlayerLevel(CharacterClass characterClass, float currentXP) 
         {
-            return progressionCharacterClasses.FirstOrDefault(characterProgression => characterProgression.CharacterClass == characterClass).GetStatValue(stat, level - 1);
+            int level = 1;
+            if (characterClass != CharacterClass.Player) return level;
+
+            Array.ForEach(progressionLookupTable[characterClass][Stat.ExperienceToLevelUp], v =>
+            {
+                if (v > currentXP) return;
+                level++;
+            });
+
+            return level;
+            
         }
 
+        public float GetStatValue(CharacterClass characterClass, Stat stat, int level)
+        {
+            BuildProgressionLookupTable();
+
+            var levels = progressionLookupTable[characterClass][stat];
+            int levelIndex;
+            if (levels.Length < level) levelIndex = levels.Length - 1;
+            else if (level < 0) levelIndex = 0;
+            else levelIndex = level - 1;
+
+            return progressionLookupTable
+                .GetValueOrDefault(characterClass)
+                .GetValueOrDefault(stat)[levelIndex];
+        }
+
+        private void BuildProgressionLookupTable()
+        {
+            if (progressionLookupTable != null) return;
+
+            progressionLookupTable = new Dictionary<CharacterClass, Dictionary<Stat, float[]>>();
+            foreach (var progressionClass in progressionCharacterClasses)
+            {
+                var statLookupTable = new Dictionary<Stat, float[]>();
+                foreach (var progressionStat in progressionClass.Stats) 
+                {
+                    statLookupTable.Add(progressionStat.stat, progressionStat.levels);
+                }
+                progressionLookupTable.Add(progressionClass.CharacterClass, statLookupTable);
+            }
+        }
 
         [Serializable]
         class ProgressionCharacterClass
         {
             public CharacterClass CharacterClass => characterClass;
+            public ProgressionStat[] Stats => stats;
 
             [SerializeField]
             private CharacterClass characterClass;

@@ -1,13 +1,10 @@
 using RPG.Attributes;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace RPG.Attributes
+namespace RPG.Stats
 {
-
     public class ExperienceDisplay : MonoBehaviour
     {
         [SerializeField]

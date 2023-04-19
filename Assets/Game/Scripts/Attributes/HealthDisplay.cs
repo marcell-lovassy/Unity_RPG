@@ -24,7 +24,7 @@ namespace RPG.Attributes
 
         private void UpdateHealthDisplay()
         {
-            healthValueText.text = String.Format("{0:0}%" ,health.HealthPercentage);
+            healthValueText.text = String.Format("{0:0}%" , health.HealthPercentage);
         }
     }
 }
