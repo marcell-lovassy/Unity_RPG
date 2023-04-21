@@ -27,5 +27,10 @@ namespace RPG.Stats
         {
             xpValueText.text = String.Format("{0:0}", experience.XP);
         }
+
+        private void OnDestroy()
+        {
+            experience.ExperiencePointsChanged -= UpdateExperienceDisplay;
+        }
     }
 }

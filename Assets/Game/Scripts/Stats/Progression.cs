@@ -25,6 +25,7 @@ namespace RPG.Stats
 
         public int GetPlayerLevel(CharacterClass characterClass, float currentXP) 
         {
+            BuildProgressionLookupTable();
             int level = 1;
             if (characterClass != CharacterClass.Player) return level;
 

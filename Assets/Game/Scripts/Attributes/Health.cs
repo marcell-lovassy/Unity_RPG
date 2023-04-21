@@ -16,25 +16,49 @@ namespace RPG.Attributes
         public event UnityAction Revived;
         public event UnityAction HealthChanged;
 
-
         public bool IsDead => !isAlive;
         public float HealthPoints => healthPoints;
-        public float HealthPercentage => (healthPoints / maxHealth) * 100f;
+        public float HealthPercentage => GetHealthPercentage();
 
         [SerializeField]
-        private float maxHealth;
-        [SerializeField]
-        float healthPoints;
+        private float regenerationPercentageOnLevelUp = 100f;
+        
+        float healthPoints = -1f;
+
+
 
         bool isAlive;
         private Animator animator;
+        BaseStats stats;
 
         private void Awake()
         {
-            healthPoints = GetComponent<BaseStats>().GetHealth();
-            maxHealth = healthPoints;
+            stats = GetComponent<BaseStats>();
+            if(healthPoints < 0)
+            {
+                healthPoints = stats.GetHealth();
+            }
+            stats.LevelChanged += RefreshHealth;
+            stats.OnLevelUp += RegenerateHealthOnLevelUp;
             animator = GetComponent<Animator>();
             isAlive = true;
+        }
+
+        private void RegenerateHealthOnLevelUp()
+        {
+            float regenHealthPoints = stats.GetHealth() * (regenerationPercentageOnLevelUp / 100);
+            healthPoints = Mathf.Max(healthPoints, regenHealthPoints);
+            HealthChanged?.Invoke();
+        }
+
+        private void RefreshHealth()
+        {
+            HealthChanged?.Invoke();
+        }
+
+        public float GetHealthPercentage()
+        {
+            return (healthPoints / GetComponent<BaseStats>().GetHealth()) * 100f;
         }
 
         public void TakeDamage(GameObject instigator, float dmg)
@@ -77,6 +101,7 @@ namespace RPG.Attributes
             var healthData = state.ToObject<HealthData>();
             isAlive = healthData.IsAlive;
             healthPoints = healthData.HealthPoints;
+            HealthChanged?.Invoke();
 
             if (healthPoints == 0)
             {

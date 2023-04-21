@@ -8,6 +8,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 229875936358542869, guid: a45cb6ab7ebe9ce41a303f5baadb8d18, type: 3}
+      propertyPath: levelUpVFX
+      value: 
+      objectReference: {fileID: 9157875053617572883, guid: 2b7c76c7b41129a43a630723fec68512, type: 3}
+    - target: {fileID: 229875936358542869, guid: a45cb6ab7ebe9ce41a303f5baadb8d18, type: 3}
       propertyPath: characterClass
       value: 0
       objectReference: {fileID: 0}
@@ -66,6 +70,10 @@ PrefabInstance:
     - target: {fileID: 4034180252845690845, guid: a45cb6ab7ebe9ce41a303f5baadb8d18, type: 3}
       propertyPath: maxHealth
       value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4034180252845690845, guid: a45cb6ab7ebe9ce41a303f5baadb8d18, type: 3}
+      propertyPath: regenerationPercentageOnLevelUp
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 4962596887843563853, guid: a45cb6ab7ebe9ce41a303f5baadb8d18, type: 3}
       propertyPath: m_Radius

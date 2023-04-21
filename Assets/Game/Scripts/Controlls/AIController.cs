@@ -45,6 +45,10 @@ namespace RPG.Controlls
             fighter = GetComponent<Fighter>();
             actionScheduler = GetComponent<ActionScheduler>();
             playerObject = GameObject.FindWithTag(PLAYER_TAG);
+        }
+
+        private void OnEnable()
+        {
             GetComponent<Health>().Died += Died;
             GetComponent<Health>().Revived += Reactivate;
         }
@@ -144,8 +148,6 @@ namespace RPG.Controlls
             actionScheduler.CancelCurrentAction();
         }
 
-       
-
         private bool IsSuspicionStateActive()
         {
             return timeSinceLastSawPlayer < suspicionTime;
@@ -167,6 +169,12 @@ namespace RPG.Controlls
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, chaseDistance);
+        }
+
+        private void OnDisable()
+        {
+            GetComponent<Health>().Died -= Died;
+            GetComponent<Health>().Revived -= Reactivate;
         }
     }
 }

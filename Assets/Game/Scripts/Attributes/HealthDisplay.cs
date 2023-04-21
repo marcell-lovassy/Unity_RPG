@@ -16,15 +16,20 @@ namespace RPG.Attributes
             health = GameObject.FindWithTag("Player").GetComponent<Health>();
         }
 
-        private void Start()
+        private void OnEnable()
         {
             health.HealthChanged += UpdateHealthDisplay;
-            healthValueText.text = String.Format("{0:0}%", health.HealthPercentage);
+            UpdateHealthDisplay();
         }
 
         private void UpdateHealthDisplay()
         {
             healthValueText.text = String.Format("{0:0}%" , health.HealthPercentage);
+        }
+
+        private void OnDisable()
+        {
+            health.HealthChanged -= UpdateHealthDisplay;
         }
     }
 }

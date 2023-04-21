@@ -7,7 +7,8 @@ namespace RPG.Stats
 {
     public class Experience : MonoBehaviour, IJsonSaveable
     {
-        public UnityAction ExperiencePointsChanged;
+        //public delegate void ExperiencePointsChanged();
+        public event UnityAction ExperiencePointsChanged;
 
         public float XP => experiencePoints;
 
