@@ -4,6 +4,7 @@ using RPG.Core;
 using RPG.Core.Interfaces;
 using RPG.Core.SavingSystem;
 using RPG.Movement;
+using RPG.Stats;
 using System;
 using UnityEngine;
 
@@ -125,13 +126,16 @@ namespace RPG.Combat
         {
             if(target == null) return;
 
+            //this damage is the base damage of the Player level (it increases at every level up)
+            float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
+            
             if (currentWeapon.HasProjectile())
             {
-                currentWeapon.LaunchProjectile(target, rightHandTransform, leftHandTransform, gameObject);
+                currentWeapon.LaunchProjectile(target, rightHandTransform, leftHandTransform, gameObject, damage);
             }
             else
             {
-                target.TakeDamage(gameObject, currentWeapon.Damage);
+                target.TakeDamage(gameObject, damage);
             }
         }
 

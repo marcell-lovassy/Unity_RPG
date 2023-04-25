@@ -18,13 +18,14 @@ namespace RPG.Attributes
 
         public bool IsDead => !isAlive;
         public float HealthPoints => healthPoints;
+        public float MaxHealth => maxHealthPoints;
         public float HealthPercentage => GetHealthPercentage();
 
         [SerializeField]
         private float regenerationPercentageOnLevelUp = 100f;
         
         float healthPoints = -1f;
-
+        float maxHealthPoints = -1f;
 
 
         bool isAlive;
@@ -53,6 +54,7 @@ namespace RPG.Attributes
 
         private void RefreshHealth()
         {
+            maxHealthPoints = stats.GetHealth();
             HealthChanged?.Invoke();
         }
 
@@ -61,9 +63,11 @@ namespace RPG.Attributes
             return (healthPoints / GetComponent<BaseStats>().GetHealth()) * 100f;
         }
 
-        public void TakeDamage(GameObject instigator, float dmg)
+        public void TakeDamage(GameObject instigator, float damage)
         {
-            healthPoints = Mathf.Max(healthPoints - dmg, 0);
+            print(gameObject.name + "took damage: " + damage);
+
+            healthPoints = Mathf.Max(healthPoints - damage, 0);
             if(healthPoints == 0)
             {
                 Die();

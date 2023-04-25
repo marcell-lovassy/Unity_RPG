@@ -21,7 +21,8 @@ namespace RPG.Attributes
         {
             if(playerFighter.GetTarget() != null)
             {
-                healthValueText.text = healthValueText.text = String.Format("{0:0}%", playerFighter.GetTarget().HealthPercentage);
+                Health health = playerFighter.GetTarget();
+                healthValueText.text = healthValueText.text = string.Format("{0}/{1}%", health.HealthPoints, health.MaxHealth);
             }
             else
             {
