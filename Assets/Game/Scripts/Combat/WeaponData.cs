@@ -6,7 +6,8 @@ namespace RPG.Combat
     [CreateAssetMenu(fileName = "WeaponData", menuName = "RPG/Weapons/Make new WeaponData", order = 0)]
     public class WeaponData : ScriptableObject
     {
-        public float Damage => damage;
+        public float Damage => weaponDamage;
+        public float PercentageBonus => weaponPercentageBonus;
         public float Range => range;
 
         [SerializeField]
@@ -16,7 +17,9 @@ namespace RPG.Combat
         [SerializeField]
         float range = 2;
         [SerializeField]
-        float damage = 5f;
+        float weaponDamage = 5f;
+        [SerializeField]
+        float weaponPercentageBonus = 0f;
         [SerializeField]
         bool rightHanded = true;
         [SerializeField]
@@ -48,11 +51,13 @@ namespace RPG.Combat
             return projectile != null;
         }
 
-        public void LaunchProjectile(Health target, Transform rightHand, Transform leftHand, GameObject instigator, float calculatedDamage)
+        public void LaunchProjectile(Health target, Transform rightHand, Transform leftHand, GameObject instigator, float damageModifier)
         {
             Projectile projectileInstance = SpawnProjectile(GetActiveHand(rightHand, leftHand));
             projectileInstance.SetTarget(target, instigator);
-            projectileInstance.ApplyDamageModifier(damage + calculatedDamage);
+
+            //damageModifier is the damageByCharacterLevel and the damage of the weapon
+            projectileInstance.ApplyDamageModifier(weaponDamage + damageModifier);
         }
 
         private Transform GetActiveHand(Transform rightHand, Transform leftHand)

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -50,11 +51,39 @@ namespace RPG.Stats
 
         public float GetStat(Stat stat)
         {
-            return progression.GetStatValue(characterClass, stat, GetCurrentLevel());
+            return (GetBaseStat(stat) + GetAdditiveModifier(stat)) * (1f + GetPercentageModifier(stat) / 100f);
         }
+
+
         public float GetExperienceReward()
         {
             return progression.GetExperienceReward(characterClass, GetCurrentLevel());
+        }
+
+        private float GetBaseStat(Stat stat)
+        {
+            return progression.GetStatValue(characterClass, stat, GetCurrentLevel());
+        }
+
+        private float GetAdditiveModifier(Stat stat)
+        {
+            //if (characterClass != CharacterClass.Player) return 0;
+            float totalModifierValue = 0;
+            foreach (IModifierProvider modifierProvider in GetComponents<IModifierProvider>())
+            {
+                totalModifierValue += modifierProvider.GetAdditiveModifiers(stat).Sum();
+            }
+            return totalModifierValue;
+        }
+        private float GetPercentageModifier(Stat stat)
+        {
+            //if (characterClass != CharacterClass.Player) return 0;
+            float totalPercentage = 0;
+            foreach (IModifierProvider modifierProvider in GetComponents<IModifierProvider>())
+            {
+                totalPercentage += modifierProvider.GetPercentageModifiers(stat).Sum();
+            }
+            return totalPercentage;
         }
 
         private void LevelUpEffect()

@@ -6,11 +6,12 @@ using RPG.Core.SavingSystem;
 using RPG.Movement;
 using RPG.Stats;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, ICharacterAction, IJsonSaveable
+    public class Fighter : MonoBehaviour, ICharacterAction, IJsonSaveable, IModifierProvider
     {
         const string ATTACK_TRIGGER = "AttackTrigger";
         const string STOP_ATTACK_TRIGGER = "StopAttackTrigger";
@@ -91,6 +92,22 @@ namespace RPG.Combat
             return target;
         }
 
+        public IEnumerable<float> GetAdditiveModifiers(Stat stat)
+        {
+            if(stat == Stat.Damage)
+            {
+                yield return currentWeapon.Damage;
+            }
+        }
+
+        public IEnumerable<float> GetPercentageModifiers(Stat stat)
+        {
+            if (stat == Stat.Damage)
+            {
+                yield return currentWeapon.PercentageBonus;
+            }
+        }
+
         private void CancelAttack()
         {
             target = null;
@@ -127,6 +144,7 @@ namespace RPG.Combat
             if(target == null) return;
 
             //this damage is the base damage of the Player level (it increases at every level up)
+            //also in GetStat we get the additional modifier for the weapon
             float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
             
             if (currentWeapon.HasProjectile())
@@ -160,6 +178,8 @@ namespace RPG.Combat
             currentWeapon = Resources.Load<WeaponData>(state.ToString());
             EquipWeapon(currentWeapon);
         }
+
+       
     }
 }
 
