@@ -37,7 +37,7 @@ namespace RPG.Stats
 
         public float GetHealth()
         {
-            return progression.GetHealth(characterClass, GetCurrentLevel());
+            return GetStat(Stat.Health);
         }
 
         public int GetCurrentLevel()
@@ -57,7 +57,7 @@ namespace RPG.Stats
 
         public float GetExperienceReward()
         {
-            return progression.GetExperienceReward(characterClass, GetCurrentLevel());
+            return GetStat(Stat.ExperienceReward);
         }
 
         private float GetBaseStat(Stat stat)

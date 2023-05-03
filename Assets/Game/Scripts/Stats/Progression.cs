@@ -14,15 +14,6 @@ namespace RPG.Stats
 
         Dictionary<CharacterClass, Dictionary<Stat, float[]>> progressionLookupTable = null;
 
-        public float GetHealth(CharacterClass characterClass, int level)
-        {
-            return GetStatValue(characterClass, Stat.Health, level);
-        }
-        public float GetExperienceReward(CharacterClass characterClass, int level)
-        {
-            return GetStatValue(characterClass, Stat.ExperienceReward, level);
-        }
-
         public int GetPlayerLevel(CharacterClass characterClass, float currentXP) 
         {
             BuildProgressionLookupTable();
